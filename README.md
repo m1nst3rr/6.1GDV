@@ -18,9 +18,8 @@ Ik heb een 2.5d level gemaakt waarin je 5 munten moet oppakken om een sleutel te
 
 ## Screenshot / GIF van je level
 
-(staat in main branch)
-
-
+[6.1GDV](https://drive.google.com/file/d/1vwbmAOVSM5rqGWzVr9w8gds_wce6s144/view?usp=sharing)
+(Vid was too long to be a gif :sob:)
 
 ---
 
