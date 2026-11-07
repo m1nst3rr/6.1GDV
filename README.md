@@ -10,7 +10,7 @@
 
 ## Wat heb ik gemaakt?
 
-<!-- Beschrijf kort je mini-level. Wat moet de speler doen? Wat is het doel? -->
+Ik heb een 2.5d level gemaakt waarin je 5 munten moet oppakken om een sleutel te krijgen, dan kan je een deur openmaken en zo is die klaar.
 
 ...
 
@@ -18,27 +18,25 @@
 
 ## Screenshot / GIF van je level
 
-<!-- Voeg hieronder een screenshot of een GIF toe van je werkende level.
-     Sleep het bestand naar deze map en gebruik dan de syntax hieronder. -->
+(staat in main branch)
 
-![Mini-level preview](images/level.gif)
 
-<!-- Tip: gebruik ShareX, LICEcap of de ingebouwde Xbox Game Bar (Win+G) om een GIF op te nemen. -->
 
 ---
 
 ## Bewegend object
 
-<!-- Welk object beweegt en hoe heb je dat gedaan? -->
+2 objecten bewegen, de player (die beweegt med WASD en SPACE.) en munten die rond draieen.
 
 ...
 
 ```csharp
-// Plak hier het script of het stuk code dat het object laat bewegen.
-void Update()
-{
 
-}
+# Player movement
+
+# SpinOBJ
+
+
 ```
 
 ---
