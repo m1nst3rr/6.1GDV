@@ -34,7 +34,48 @@ Ik heb een 2.5d level gemaakt waarin je 5 munten moet oppakken om een sleutel te
 
 # Player movement
 
+
+    void Update()
+    {
+       
+
+        if (Input.GetKeyDown(KeyCode.Space) && stamina > 0)
+        {
+            jump();
+        }
+
+        Movement();
+
+    }
+    void Movement()
+    {
+        Vector3 moveX = Vector3.left * speed * Input.GetAxis("Horizontal") * Time.deltaTime;
+        transform.position += moveX;
+
+        Vector3 moveZ = Vector3.back * speed * Input.GetAxis("Vertical") * Time.deltaTime;
+        transform.position += moveZ;
+    }
+
+    void jump()
+    {
+        rb.AddForce(Vector3.up * jumpforce);
+        stamina--;
+
+    }
+  
+
+
+
 # SpinOBJ
+
+    public float rotateSpeed = 90f;
+
+    void Update()
+    {
+        transform.Rotate(0,0, rotateSpeed * Time.deltaTime);
+    }
+
+
 
 
 ```
@@ -43,45 +84,147 @@ Ik heb een 2.5d level gemaakt waarin je 5 munten moet oppakken om een sleutel te
 
 ## Collider of trigger
 
-<!-- Welk object heeft een collider of trigger, en wat gebeurt er? -->
+De objecten met triggers zijn, De deur, Npc en muntjes
 
 ...
 
 ```csharp
-// Plak hier de OnCollisionEnter/OnTriggerEnter code die je hebt gebruikt.
-private void OnTriggerEnter(Collider other)
-{
+# Door
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerNear = true;
+            Debug.Log("Press E to open");
+        }
+    }
 
-}
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerNear = false;
+        }
+    }
+
+#NPC
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerNearby = true;
+            Debug.Log("Press E to talk");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerNearby = false;
+        }
+    }
+
+#Coins
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+         
+            amountCoins++;
+
+            Debug.Log($"Coins collected = {amountCoins}");
+
+            if (amountCoins == coinsNeeded)
+            {
+                Debug.Log("Go talk to XXX");
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
 ```
 
 ---
 
 ## Logica met `if` of `switch`
 
-<!-- Beschrijf kort welke keuze je hebt gemaakt (bijv. sleutel → deur open). -->
+als de player een sleutel heeft dan opent een deur
 
 ...
 
 ```csharp
-// Plak hier het stuk code met jouw if- of switch-logica.
-if ()
-{
+ if (playerNear && Input.GetKeyDown(KeyCode.E))
+ {
+     if (HasKey.hasKey)
+     {
+         Debug.Log("Door opened!");
 
-}
+         closedDoor.SetActive(false);
+         
+     }
+     else
+     {
+         Debug.Log("Need a key!");
+     }
+ }
+
 ```
 
 ---
 
 ## Eigen extra idee
 
-<!-- Wat is jouw eigen extra feature? Beschrijf wat het doet en hoe je het hebt gebouwd. -->
+ik had een soort NPC gemaakt, die een bepaalde hoeveelheid munten vraagt. als je die pakt dan krijg je pas een sleutel.
 
 ...
 
 ```csharp
-// Optioneel: plak hier de bijbehorende code.
+public class TalkingToNPC : MonoBehaviour
+{
+    private bool playerNearby = false;
 
+    private void Update()
+    {
+        if (playerNearby && Input.GetKeyDown(KeyCode.E))
+        {
+            Talk();
+        }
+    }
+
+    void Talk()
+    {
+        if (DestroyOnTrigger.amountCoins >= DestroyOnTrigger.coinsNeeded)
+        {
+            Debug.Log("Thanks. Here's that key.");
+            Debug.Log("* You received a key! *");
+
+            HasKey.hasKey = true;
+        }
+        else
+        {
+            Debug.Log("If you can find me 5 coins, I'll give you a key.");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerNearby = true;
+            Debug.Log("Press E to talk");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerNearby = false;
+        }
+    }
+}
 ```
 
 ---
@@ -90,18 +233,18 @@ if ()
 
 ### Wat ging goed? en waarom?
 
-<!-- Wat lukte je makkelijk of waar ben je trots op? -->
+De graphics, ik vind de 2.5 stijl prachtig- though ik had geen tijd om de anti aliasing te fixen..
 
 ...
 
 ### Wat vond je lastig? en waarom?
 
-<!-- Waar liep je tegenaan? Hoe heb je het opgelost (of niet)? -->
+om andere scripts en datatypen in een nieuwe script te referencen.
 
 ...
 
 ### Wat zou je een volgende keer anders doen?
 
-<!-- Wat heb je geleerd? -->
+om betere namen te geven aan mijn strings en ints :sob: ik vond het confusing om alles te herinneren tbh
 
 ...
